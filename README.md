@@ -1,7 +1,7 @@
 # pdfmaker
 Repo for python project - pdfmaker. Software to make pdf's from pictures. Simple zine making.
 
-How to:\n
+How to:<br>
 python3 main.py path name_of_the_file
 path - source path to your catalog with photos
 name_of_the_file - name of the pdf file that program will create
