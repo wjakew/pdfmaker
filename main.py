@@ -1,9 +1,11 @@
 import PDF_Maker as PDMaker
+import gui
+import gui_selectionwindow as guis
 import sys
 import os
 
-version = "v 1.0.0"
-date = "04.2020"
+version = "v 1.1.0"
+date = "08.2020"
 
 catalog_path = ""
 pdf_name = ""
@@ -19,12 +21,10 @@ print(welcome1)
 print(welcome2)
 print("")
 
-# wykonywanie programu z linii polecen
-if  len(sys.argv) == 3:
-
+def run(string_path,string_pdf_name):
     # przepisanie danych z konsoli do programu
-    catalog_path = str(sys.argv[1])
-    pdf_name = str(sys.argv[2])
+    catalog_path = string_path
+    pdf_name = string_pdf_name
 
     # pierwsze sprawdzenie czy nazwa sciezki konczy sie prawidlowo
     # i ewentualna korekcja
@@ -42,6 +42,12 @@ if  len(sys.argv) == 3:
         pdf = PDMaker.PDF_Maker(catalog_path,pdf_name)
         for line in pdf.images.log:
             print(line)
+
+# wykonywanie programu z linii polecen
+if  len(sys.argv) == 3:
+    catalog_path = str(sys.argv[1])
+    pdf_name = str(sys.argv[2])
+    run(catalog_path,pdf_name)
 
 # wyswietlanie help
 elif len(sys.argv) == 2 and sys.argv[1] == "help":
@@ -62,8 +68,22 @@ elif len(sys.argv) == 2 and sys.argv[1] == "help":
     print((version + " " + date).center(spaces))
 # wykonywanie programu z gui
 else:
-    print("Opening graphical interface - to be added")
-    print("Type 'python3 main.py help' for further instructions")
+    main_window = gui.GUI()
+
+    if ( main_window.flag ):
+        #input_window = guis.Gui_selectionwindow("Test prompt","Test string info","Test button",200,200)
+        name = input("PDF file name:")
+        if name != "":
+            ans = input("Are you sure to use this data? (y/n)")
+            if ans == "y":
+                print("Data saved")
+                run(main_window.file_path,name)
+            else:
+                print("Procedure cancelled")
+        else:
+            print("Name is empty")
+            print("Procedure cancelled")
+
 
 
 
